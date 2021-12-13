@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/user_info',user:@user,book:@book %>
+      <% if flash[:notice] %>
+       <p id="notice">
+       <%= flash[:notice] %>
+       </p>
+      <% end %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td><%= link_to user_path(@user.id) do %>
+                  <%= attachment_image_tag @newbook.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %><br>
+                  <% end %>
+              <%= link_to @newbook.user.name , user_path(@user.id) %>
+              </td>
+              <td><%= link_to @newbook.title , book_path(@newbook.id) %></td>
+              <td><%= @newbook.body %></td>
+              <td>
+                <% if @newbook.user == current_user %>
+                <%= link_to "Edit" , edit_book_path(@newbook.id) %>
+                <% end %>
+              </td>
+              <td>
+                <% if @newbook.user == current_user %>
+                <%= link_to "Destroy" , book_path(@newbook.id), method: :delete %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
